@@ -56,7 +56,7 @@ while True:
                         }
 
                         carrinho_Compras.append(item)
-                        estoque_Sistema[id_produto]['Quantidade Estoque']] -= qtd_Product
+                        estoque_Sistema[id_produto]['Quantidade Estoque'] -= qtd_Product
 
                     print(f"{id_produto} adicionado ao carrinho! ")
                     print(item)
