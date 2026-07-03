@@ -1,11 +1,13 @@
+cupom1 = str("DEV10")
+cupom2 = str("DEV20")
 
 estoque_Sistema = {
 
-    1:  {"Nome" : "💻Notebook gamer", "Preço" : 5.000,"Quantidade Estoque" : 15},
-    2:  {"Nome" : "🎮Videogame (PS5, Xbox) ", "Preço" : 8.300 ,"Quantidade Estoque" : 20},
-    3:  {"Nome" : "🖥️Monitor Gamer","Preço" : 4.500,"Quantidade Estoque" : 25},
-    4:  {"Nome" : "💺Cadeira Gamer","Preço" :3.250, "Quantidade Estoque" : 15},
-    5:  {"Nome" : "🎧Fone Bluetooth", "Preço" : 5.000,"Quantidade Estoque" : 10}
+    1:  {"Nome" : "💻Notebook gamer", "Preço" : 5000.00,"Quantidade Estoque" : 15},
+    2:  {"Nome" : "🎮Videogame (PS5, Xbox) ", "Preço" : 8.333 ,"Quantidade Estoque" : 20},
+    3:  {"Nome" : "🖥️Monitor Gamer","Preço" : 4500.00 ,"Quantidade Estoque" : 25},
+    4:  {"Nome" : "💺Cadeira Gamer","Preço" :3250.00, "Quantidade Estoque" : 15},
+    5:  {"Nome" : "🎧Fone Bluetooth", "Preço" : 5650.00,"Quantidade Estoque" : 10}
 
 }
 
@@ -37,19 +39,32 @@ while True:
         case 2:
             print("[2] = Adicionar Item ao Carrinho:")
 
-            compra = input("Código do Produto Desejado: ")
+            compra = int(input("Código do Produto Desejado: "))
 
-            for k,v in estoque_Sistema.items():
-                if compra == k:
-                    quantidade_Product = int(input(f"Quantos {v} ? "))
-                    if v["Quantidade Estoque"] >= quantidade_Product:
-                        carrinho_Compras.append(v)
-                        print(f"{v} adicionado ao carrinho! ")
-                        estoque_Sistema[v]["Quantidade Estoque"] -= quantidade_Product
-                    else:
-                        print("Estoque insuficiente! Nao é possível adicionar ao carrinho !😨")
-                else :
-                    print("Código inválido! Tente novamente!")
+            for id_produto,v in estoque_Sistema.items():
+
+                if compra == id_produto:
+
+                    qtd_Product = int(input(f"Quantos {v['Nome']} ? "))
+                    if qtd_Product <= estoque_Sistema[id_produto]['Quantidade Estoque']:
+
+                        item = {
+                            "quantidade" : qtd_Product,
+                            "Nome" : estoque_Sistema[id_produto]['Nome'],
+                            "Preco" : estoque_Sistema[id_produto]['Preco'],
+                            "preco_Total" : qtd_Product * estoque_Sistema[id_produto]['Preco']
+                        }
+
+                        carrinho_Compras.append(item)
+                        estoque_Sistema[id_produto]['Quantidade Estoque']] -= qtd_Product
+
+                    print(f"{id_produto} adicionado ao carrinho! ")
+                    print(item)
+
+
+                else:
+                    print(f"Nao é possível adicionar ao carrinho !😨. Temos apenas {estoque_Sistema[id_produto]['Quantidade Estoque']} no estoque.")
+                break;
 
         case 3:
                 print("[3] = Visualizaçao Carrinho de Compras :")
@@ -57,11 +72,27 @@ while True:
                   print("Seu Carrinho está vazio ☹️! Adicione algum Produto.")
                 else:
                   print(carrinho_Compras)
-                  subTotal_Carrinho = sum("Preço")
+                  subTotal_Carrinho = sum("Preco")
                   print(f"SubTotal da sua compra: {subTotal_Carrinho}")
 
         case 4:
             print("[4] = Finalizar Compra")
+
+            tem_Cupom = str(input("Tem cupom ? S  ou  N")).upper()
+            if tem_Cupom == "S":
+                aplicar_Cupom = str(input("Digite o seu cupom: "))
+                if aplicar_Cupom == cupom1:
+                    total_Compra = subTotal_Carrinho * 0.10
+                    print(f"🤑 Valor total com desconto:  : {total_Compra}")
+
+                elif aplicar_Cupom == cupom2 and subTotal_Carrinho > 500 :
+                    total_Compra = subTotal_Carrinho * 0.20
+                    print(f"🤑 Valor total com desconto:  : {total_Compra}")
+
+            else:
+                print("Cumpom nao existe! ")
+
+
 
 
 
